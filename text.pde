@@ -109,7 +109,7 @@ void setupTitle(){
     "Aus einem gewissen Blickwinkel kenne ich dich besser als du dich selbst!",
     "Jeden Tag fütterst du mich mit tausenden von privaten Inforationen. Jeden Tag wächst dein digitaler Fußabdruck weiter...",
     "Und das war nur ein kleiner Einblick.",
-    "Analyse wird gestartet...",
+    "Analyse wird gestartet...", // cue near end of analysis
     "Alle diese Daten habe ich über ein einziges Foto von dir gewonnen, welches ich eben von dir aufgenommen habe",
     "Stell dir vor welchen Schaden ich mit allen jemals von dir angesammelten Masse Daten anrichten könnte.",
     "Für Firmen sind diese Daten aus wirtschaftlichen Gründen sehr wertvoll. Für Cyberkriminelle sind sie ein gefundenes Fressen",

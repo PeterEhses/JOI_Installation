@@ -36,7 +36,12 @@ void facerecog(){
       if (faceframe>10){
         recogsucc = true;
         c.resize(0,200);
-        c.save("test.jpg");//TODO make bg white
+        e = createGraphics(c.width,c.height);
+        e.beginDraw();
+        e.background(255);
+        e.image(c,0,0);
+        e.endDraw();
+        e.save("test.jpg");//TODO make bg white
         faceframe=0;
         
       }
@@ -91,8 +96,9 @@ void waitForAThing(){
       
       thename = umapClient.readString();
       umapClient.stop();
-      println(thename);
+      //println(thename);
       umapworking = false;
+      umapdone = true;
     } 
   }
   
@@ -101,6 +107,10 @@ void waitForAThing(){
   umapworking = true;
   umapsent = false;
   println("exit socket thread");
-  println(json.fromName(thename));
+  println(thename);
+  json.fromName(thename);
+  if(json.fromName(thename)){
+    json.prepareForBoids();
+  }
   donewithdata = true;
 }

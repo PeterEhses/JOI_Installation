@@ -1,3 +1,5 @@
+
+
 class IdleLine{
   PVector location;
   PVector direction;
@@ -70,7 +72,7 @@ void setupIdle(){
 }
 
 void drawIdle(){
-  anim.background(255);
+  anim.background(255,0);
   for (IdleLine l : lines){
     l.math();
   l.render(anim);

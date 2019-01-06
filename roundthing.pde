@@ -35,6 +35,7 @@ void drawTop(){
       recogdone = false;
 
     if(recogsucc){
+      bgChangeVal = -1;
      //recogsucc = false;
      effigy = c.get();
      effigy.resize(top.width,0);

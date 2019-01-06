@@ -67,27 +67,30 @@ class Boid{
   //based on shiffman: nature of code, vehicle class
   float maxspeed;
   float maxforce;
-  
+  String textvar;
   PVector location;
   PVector velocity;
   PVector acceleration;
   float mass;
+  color myColor;
   float depth;
   float r;
   float w;
   float h;
-  Boid(PVector l, float m, float z){
+  Boid(PVector l, float m, float z, String te, color co){
     depth = z;
-  location = l.get();
-  acceleration = new PVector(0,0);
-  velocity = new PVector(0,0);
-  mass = m;
-  w = mass*10;
-  h=mass*10;
-  r=(w+h)/2;
-  
-  maxspeed = 10/m;
-  maxforce = 2;
+    textvar = te;
+    location = l.get();
+    acceleration = new PVector(0,0);
+    velocity = new PVector(0,0);
+    mass = m;
+    w = mass*10;
+    myColor = co;
+    h=mass*10;
+    r=(w+h)/2;
+    
+    maxspeed = 10/m;
+    maxforce = 2;
   }
   
   void applyForce(PVector force){
@@ -159,10 +162,8 @@ class Boid{
   }
   
   void render(PGraphics context){
-    context.colorMode(HSB);
-    context.fill(mass*10,255,255,50+(mass*20));
+    context.fill(myColor);
     context.ellipse(location.x,location.y,mass*10,mass*10);
-    context.colorMode(RGB);
   }
   void render3D(PGraphics context){
     context.colorMode(HSB);
@@ -194,7 +195,9 @@ class Boid{
        }
      }
     if(neighbors.length > 1){
-      context.fill(222,56,66,50+(20*mass));
+      //context.fill(red(myColor),green(myColor),blue(myColor),50+(20*mass));
+      context.fill(red(rose),green(rose),blue(rose),50+(20*mass));
+      
       context.triangle(location.x,location.y,neighbors[0].x,neighbors[0].y,neighbors[1].x,neighbors[1].y);
     }
   }
@@ -225,7 +228,7 @@ class Boid{
     context.fill(255,255,255);
     context.textSize(r);
     context.textAlign(LEFT);
-    context.text("test",location.x+r,location.y);
+    context.text(textvar,location.x+r,location.y);
   }
 
 }
@@ -237,12 +240,12 @@ void setupParticles(){
   
   myField = new Field(40);
   boids = new ArrayList<Boid>();
-  for (int i = 0; i < 20; i++) {
-    boids.add(new Boid(new PVector(random(width),-50),random(4.0,8),random(-50,50)));
+  for (int i = 0; i < 2; i++) {
+    boids.add(new Boid(new PVector(random(width),-50),random(4.0,8),random(-50,50),"",white));
   }
   
-  for (int i = 0; i < 100; i++) {
-    boids.add(new Boid(new PVector(random(width),-50),random(1.0,3),random(-50,50)));
+  for (int i = 0; i < 5; i++) {
+    boids.add(new Boid(new PVector(random(width),-50),random(1.0,3),random(-50,50),"",white));
   }
   
 }

@@ -7,7 +7,7 @@ PGraphics top;
 PImage logo;
 
 float bgChangeVal = +1;
-float currentValue = 255;
+float currentValue = 0;
 
 
 void setupAnimation(){
@@ -33,11 +33,11 @@ void animationEnd(){
   //rect(0,0,width,height);
   BGtoPoint();
   background(currentValue);
-  image(anim,0,0);;           
+  image(anim,0,0);           
 }
 
 void BGtoPoint(){
-  if( 0 <= currentValue && currentValue <= 255){
+  if( 0 <= currentValue+bgChangeVal && currentValue+bgChangeVal <= 255){
   currentValue += bgChangeVal;
   }
 }

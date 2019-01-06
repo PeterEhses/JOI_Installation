@@ -1,3 +1,33 @@
+boolean prefaceDone = false;
+
+void reset(){
+  println("*-----*-----*");
+  println("|   reset   |");
+  println("*-----*-----*");
+ faceframe = 0;
+ recogdone = true;
+ recogsucc = false;
+ umapdone = false;
+ //firstTime = 0;
+ bgChangeVal = +1;
+ currentValue = 255;
+ tfsent = false;
+ tfworking = true;
+ umapsent = false;
+ umapworking = true;
+ donewithdata = false;
+ boids = new ArrayList<Boid>();
+ for (int i = 0; i < 2; i++) {
+    boids.add(new Boid(new PVector(random(width),-50),random(4.0,8),random(-50,50),"",white));
+  }
+  
+  for (int i = 0; i < 5; i++) {
+    boids.add(new Boid(new PVector(random(width),-50),random(1.0,3),random(-50,50),"",white));
+  }
+}
+
+
+
 class Timer{
   
   int starttime;
@@ -10,11 +40,12 @@ class Timer{
     time = millis();
   
     eventTimes = new int[]{
-      0,  // evt 0, 
-      5000,
-      6000,
+      0,  // evt 0, //nothing happens! needs to be reserved because programming
+      5000, // text starts "done processing.."
+      6000, // 
       7000,
-      37000
+      60000,
+      70000
     };
     print("Number of timed events:");
     println(eventTimes.length);
@@ -30,16 +61,24 @@ class Timer{
     return(time);
   }
   void functionManager () {
-    if (getTime() > eventTimes[3] && !eventsDone[3]){
-      //eventsDone[3] = true;
-      //println(boids.size());
-      if (boids.size()>0){
-      boids.remove(boids.size() -1);
-      //println("balls");
-      }
+    if (getTime() > eventTimes[4] && !eventsDone[4]){
+      bgChangeVal = +1;
     }
     
-  
+    
+    if (getTime() > eventTimes[5] && !eventsDone[5]){
+      //eventsDone[3] = true;
+      //println(boids.size());
+      
+      if (boids.size()>0){
+        if (frameCount % 40 == 0){
+          boids.remove(boids.size() -1);
+          //println("balls");
+        }
+      } else{
+      reset();
+      }
+    }
     
   }
 }
@@ -47,10 +86,15 @@ class Timer{
 
 class FireStarter{
   
-  
-  
+  boolean newFace;
+  int boidBlueN;
+  int boidYellowN;
+  int boidRoseN;
   FireStarter(){
-  
+    boidBlueN = 0;
+    boidYellowN = 0;
+    boidRoseN = 0;
+    newFace = true;
   }
 
   void run(){
@@ -65,10 +109,42 @@ class FireStarter{
       
     }
     else {
-      bgChangeVal = -1;
+      
       drawParticles();
     }
-  
+    if(!umapdone){
+      timer.updateStartTime();
+    } else{
+      if(newFace){
+        
+        bgChangeVal = -1;
+        if(boidBlueN < json.blue.length){
+          if (frameCount % 380 == 0) {
+            boids.add(new Boid(new PVector(random(width),-50),random(5.0,8),1,json.blue[boidBlueN],cyan));
+            boidBlueN ++;
+          }
+        } else {
+          if (boidYellowN < json.yellow.length){
+            if (frameCount % 100 == 0) {
+              boids.add(new Boid(new PVector(random(width),-50),random(2.5,3),1,json.yellow[boidYellowN],yellow));
+              boidYellowN ++;
+            }
+          } else{
+            if (boidRoseN < json.rose.length){
+              if (frameCount % 50 == 0) {
+                boids.add(new Boid(new PVector(random(width),-50),random(1,1.5),1,json.rose[boidRoseN],rose));
+                boids.add(new Boid(new PVector(random(width),-50),random(1,1.5),1,json.rose[boidRoseN],rose));
+                boidRoseN ++;
+              }
+            } else {
+              newFace = false;
+            }
+          }
+          
+          
+        }
+      }
+    }
   }
 
 }

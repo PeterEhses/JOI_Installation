@@ -16,20 +16,18 @@ Rectangle[] faces;
  PGraphics emask;
  PImage d;
  PImage c;
+ PGraphics e;
 boolean recogdone;
 boolean recogsucc;
-
+boolean umapdone;
 
 
 
  
-void setup() { 
-  size(2500, displayHeight, P3D);
+void setup() {  //<>//
+  size(3500, displayHeight, P3D);
   String[] fontList = PFont.list();
 //printArray(fontList);
-
-  frameRate(30);
-  background (0, 0, 0); 
   cam = new Capture( this, 1280, 720 , 30); 
   cam.start(); 
   //opencv = new OpenCV(this, cam.width, cam.height); 
@@ -37,10 +35,12 @@ void setup() {
   opencv.loadCascade(OpenCV.CASCADE_FRONTALFACE);
   ellipseMode(CORNER);
  emask = createGraphics(1280,720);
+ e = new PGraphics();
  frame = 40;
  faceframe = 0;
  recogdone = true;
  recogsucc = false;
+ umapdone = false;
  c = cam.get();
  frameRate(240);
  
@@ -76,7 +76,7 @@ void technicallyNotAThirdSetup(){
   println("3rd subsetup");
 }
  
-void draw() { 
+void draw() {  //<>//
   if(firstTime == 0){
     technicallyNotASetup();
   } else if (firstTime == 1){
@@ -105,7 +105,7 @@ void draw() {
     drawSketchMapper();
 
     //println(frameRate);
-    debugInfo();
+    //debugInfo(); //<>//
   }
 }
  
