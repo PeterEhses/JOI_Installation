@@ -87,7 +87,7 @@ void waitForAThing(){
     } 
   }
   println("umap");
-  while(umapworking){
+  while(umapworking){ 
     if (!umapsent){
       umapsent = true;
       umapClient.write("Paging Python!");

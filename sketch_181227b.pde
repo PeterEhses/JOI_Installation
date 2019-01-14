@@ -25,7 +25,7 @@ boolean umapdone;
 
  
 void setup() {  //<>//
-  size(3500, displayHeight, P3D);
+  size(2000, displayHeight, P3D);
   String[] fontList = PFont.list();
 //printArray(fontList);
   cam = new Capture( this, 1280, 720 , 30); 

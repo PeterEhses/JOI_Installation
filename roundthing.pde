@@ -24,12 +24,12 @@ PImage effigy;
 void drawTop(){
   top.beginDraw();
   top.clear();
-  top.background(0);
+  top.background(255);
   top.ellipseMode(CORNER);
   
   top.fill(255);
   top.noStroke();
-  top.ellipse(0,0,top.width,top.height);
+  //top.ellipse(0,0,top.width,top.height);
   
   if(recogdone){
       recogdone = false;
@@ -66,5 +66,7 @@ void drawTop(){
   
   top.endDraw();
   top.mask(maskthing);
-  image(top,0,0);
+  imageMode(CENTER);
+  image(top,width/2,height/2);
+  imageMode(CORNER);
 }

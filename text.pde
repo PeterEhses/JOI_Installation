@@ -8,7 +8,15 @@ class TitleHandler{
   float b;
   float a;
   float amax;
+  float direction;
+  boolean readyIn;
+  boolean changeDone;
+  int textpos;
   TitleHandler(String[] tl){
+    changeDone = true;
+    textpos = 0;
+    readyIn = false;
+    direction = 0;
     texts = tl;
     title = texts[5];
     location = new PVector(100,100);
@@ -49,13 +57,59 @@ class TitleHandler{
     }
   }
   
+  void next(){
+    //print(texts.length);
+    //println(textpos);
+    textpos += 1;
+    if(textpos >= texts.length){
+      textpos = 0;
+    }
+    
+    setTitle(texts[textpos]);
+  }
+  
+  
   void setTitle(String t){
     title = t;  
   }
   
+  void change(){
+    direction = -1;
+    changeDone = false;
+  }
+  
+  void show(){
+    readyIn = true;
+  }
+  
+  boolean hasChanged(){
+    return(changeDone);
+  }
+  
   void render(PGraphics context){
+    //print(a);
+    //print("  ");
+    //println(direction);
+    
+    if (readyIn && direction == 0){
+      readyIn = false;
+      direction = 1;
+    }
+    if (direction == -1){
+      if (fadeOut()){
+        direction = 0;
+        next();
+      }
+    } else if (direction == 1){
+      if (fadeIn()){
+        direction = 0;
+        changeDone = true;
+      }
+    }
+    
+    
     context.textAlign(CENTER,CENTER);
-    context.textSize(50);
+    context.textSize(30);
     context.fill(r,g,b,a);
     context.text(title,location.x,location.y);
   }
@@ -123,9 +177,12 @@ void setupTitle(){
 }
 
 void drawTitle(){
+  if (titlehandler.hasChanged()){
+    titlehandler.change();
+    titlehandler.show();
+  }
   //textimg.beginDraw();
   //textimg.clear();
-  titlehandler.fadeIn();
   //titlehandler.render(textimg);
   //textimg.endDraw();
   //image(textimg,0,0);

@@ -14,8 +14,8 @@ void setupAnimation(){
   logo = loadImage("./data/logo.png");
   anim = createGraphics(width, height, P3D);
   textimg = createGraphics(width, height, P3D);
-  top = createGraphics(height, height, P3D);
-  maskthing = createGraphics(height, height, P3D);
+  top = createGraphics(height/3*2, height/3*2, P3D);
+  maskthing = createGraphics(top.height, top.height, P3D);
   
 }
 void animationDraw(){

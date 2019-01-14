@@ -16,6 +16,9 @@ void reset(){
  umapsent = false;
  umapworking = true;
  donewithdata = false;
+ tfClient = new Client(this, "127.0.0.1", 50008);
+ umapClient = new Client(this, "127.0.0.1", 50007);
+ setupTimer();
  boids = new ArrayList<Boid>();
  for (int i = 0; i < 2; i++) {
     boids.add(new Boid(new PVector(random(width),-50),random(4.0,8),random(-50,50),"",white));
@@ -41,6 +44,10 @@ class Timer{
   
     eventTimes = new int[]{
       0,  // evt 0, //nothing happens! needs to be reserved because programming
+      500, //eventTimes 1
+      1000, //2
+      1500, //3
+      2000,//etc.
       5000, // text starts "done processing.."
       6000, // 
       7000,
@@ -61,12 +68,17 @@ class Timer{
     return(time);
   }
   void functionManager () {
-    if (getTime() > eventTimes[4] && !eventsDone[4]){
+    if (getTime() > eventTimes[1] && !eventsDone[1]){
+      
+    }
+    
+    
+    if (getTime() > eventTimes[8] && !eventsDone[8]){
       bgChangeVal = +1;
     }
     
     
-    if (getTime() > eventTimes[5] && !eventsDone[5]){
+    if (getTime() > eventTimes[9] && !eventsDone[9]){
       //eventsDone[3] = true;
       //println(boids.size());
       
@@ -116,7 +128,10 @@ class FireStarter{
       timer.updateStartTime();
     } else{
       if(newFace){
-        
+        //println("new Face");
+        //println(boidBlueN);
+        //println(boidYellowN);
+        //println(boidRoseN);
         bgChangeVal = -1;
         if(boidBlueN < json.blue.length){
           if (frameCount % 380 == 0) {
